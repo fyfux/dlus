@@ -15,10 +15,14 @@
     }
     $starting_limit_number=($page-1)*$results_per_page;
 
+
+
+
+
     //results per page INST
     if ($permissions == 5) :
-            $number_of_resultsINST = mysqli_num_rows($resultINST);
-            $number_of_pagesINST = ceil($number_of_resultsINST / $results_per_page);
+        $number_of_resultsINST = mysqli_num_rows($resultINST);
+        $number_of_pagesINST = ceil($number_of_resultsINST / $results_per_page);
             
         $sqlINSTp = "SELECT record_id, huser_id, week, mon, tue, wed, thu, fri, sat, sun, sum, hproject_number, hproject_manager, pm, mg FROM record WHERE huser_id = '$user_check' ORDER BY record_id DESC LIMIT " . $starting_limit_number . ',' . $results_per_page; 
         $resultINSTp = $db->query($sqlINSTp);
@@ -29,8 +33,8 @@
                 echo '<a href="records.php?page=' . $page . '"  ">' . $page . '</a>';
             }
         ?></p> <?php
-            endif; 
         endif; 
+    endif; 
     
     //results per page PM
     if ($permissions == 4) :
@@ -158,8 +162,8 @@
                         <td id="days"><?php echo $row["sat"]; ?></td>
                         <td id="days"><?php echo $row["sun"]; ?></td>
                         <td id="extra"><?php echo $row["sum"]; ?></td>
-                        <td><?php echo $row["hproject_number"]; ?></td>
-                        <td><?php echo $row["hproject_manager"]; ?></td>
+                        <td><?php echo "1000-1-675" //$row["hproject_number"]; ?></td>
+                        <td><?php echo "Lilita Skudra" //$row["hproject_manager"]; ?></td>
 
                         <td>
                             <?php if($row["pm"] == 0)
@@ -193,7 +197,9 @@
     <!--Table for PM-->    
     <?php if ($permissions == 4):?>
         <tbody>
-            <?php if ($resultPMp->num_rows > 0) {
+            <?php 
+
+            if ($resultPMp->num_rows > 0) {
                 while( $row = $resultPMp->fetch_assoc()):?>
                     <tr>
                         <td><?php echo $row["huser_id"]; ?></td>
@@ -347,8 +353,20 @@
                         <td id="days"><?php echo $row["sat"]; ?></td>
                         <td id="days"><?php echo $row["sun"]; ?></td>
                         <td id="extra"><?php echo $row["sum"]; ?></td>
-                        <td><?php echo $row["hproject_number"]; ?></td>
+                        
+                        <td><?php //$projnr = $row["hproject_number"];
+                            
+                                //$prnr = "SELECT project_number FROM project where project_id=$projnr";
+                                //$result = $db->query($prnr);
+                                //echo $row['project_number'];
+                                //to get porject number, not ID
+                            echo $row["hproject_number"];
+                            ?>
+
+                        </td>
+
                         <td><?php echo $row["hproject_manager"]; ?></td>
+                        
                         <td>
                             <?php if($row["pm"] == 0)
                             echo ' '; 

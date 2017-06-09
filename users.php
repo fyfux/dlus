@@ -87,8 +87,6 @@ switch($_GET['orderBy']) {
 
 
 
-
-
 <div class="info_grid">
 <table>
 <caption>Users <button onclick="location.href = 'new_user.php';" id="myButton" class="btn btn-default" >New User</button></caption>

@@ -3,24 +3,15 @@
 
    $title = 'Report';
    include('include/parts/header.php');
-
-   //FOR DROPDOWN MENUS
-   $project = "SELECT project_id, project_number, description FROM project where status = 1 ORDER BY project_number";
-   $resultproject = mysqli_query($db, $project);
-
-   $manager = "SELECT user_id, hansa_id, first_name, last_name FROM user where user_role = 4 ORDER BY first_name";
-   $resultmanager = mysqli_query($db, $manager);
-
-   $inst = "SELECT user_id, hansa_id, first_name, last_name FROM user where user_role = 5 ORDER BY first_name";
-   $resultinst = mysqli_query($db, $inst);
+   include 'sql_calls.php';
 
 ?>
 
 <div>
 <form class="report" method="post" name="" action="reports.php">
   
- <!--<label for="month">Month</label>
-  <select name="month"> 
+    <!--<label for="month">Month</label>
+    <select name="month"> 
 							<?php 
 							/*echo '<option value=""></option>';
 							for ($i = 1; $i <= 12; $i++) { ?> 
@@ -82,9 +73,10 @@
     <?php endif ?>
 </div>
 
-  <input type="submit" name="search" value="<?php echo "Calculate"; ?>" />
-  </form>
-  <button>Export to Excel</button><!--ADD FUNCTION-->
+  <input type="submit" name="search" value="<?php echo "Calculate"; ?>" /> 
+ </form> <br><br>
+
+
 <?php 
 
 
@@ -100,11 +92,12 @@ if (isset($_POST['search']))
 ?>
   
 
-<div>
+<div class="table-responsive", id="report_table">
 
 	<table>
 
-    <caption>Records</caption>
+   
+
         
       <thead>
         <?php if ($permissions != 5):?><th>Author</th><?php endif; ?>
@@ -121,28 +114,29 @@ if (isset($_POST['search']))
         <?php if ($permissions != 4):?>
             <th>Manager</th>
         <?php endif; ?>
+
     </thead>
 
 <?php  
       
       //ACCOUNTING REPORT
       if ($permissions < 4) {
-      $q="SELECT * FROM record";
+      $q="SELECT * FROM record WHERE mg = 1";
       if ($week_no!="") {
-          $q .=" WHERE week = '$week_no'";}
+          $q .=" AND week = '$week_no'";}
       if ($project_number!="") {
-        	$q .=" WHERE hproject_number = '$project_number'";}
+        	$q .=" AND hproject_number = '$project_number'";}
       if ($project_manager!=""){
-      	$q .=" WHERE hproject_manager = '$project_manager'";}
+      	$q .=" AND hproject_manager = '$project_manager'";}
       if ($installer!=""){
-      	$q .=" WHERE huser_id = '$installer'";}
+      	$q .=" AND huser_id = '$installer'";}
       $search = mysqli_query($db,$q);
       }
 
       //PERSON REPORT
       if ($permissions == 5) {
 
-      $q="SELECT * FROM record WHERE huser_id = '$user_check'";
+      $q="SELECT * FROM record WHERE huser_id = '$user_check' AND mg = 1";
 
       if ($week_no!="") {
           $q .=" and week = '$week_no'";}
@@ -158,7 +152,7 @@ if (isset($_POST['search']))
       //PROJECT REPORT
       if ($permissions == 4) {
 
-      $q="SELECT * FROM record WHERE hproject_manager = '$userrid'";
+      $q="SELECT * FROM record WHERE hproject_manager = '$userrid' AND mg = 1";
 
       if ($week_no!="") {
           $q .=" and week = '$week_no'";}
@@ -193,8 +187,9 @@ if (isset($_POST['search']))
                         <td id="days"><?php echo $row["sun"]; ?></td>
                         <td id="extra"><?php echo $row["sum"]; ?></td>
                         <td><?php echo $row["hproject_number"]; ?></td>
+                        <?php if ($permissions != 4):?>
                         <td><?php echo $row["hproject_manager"]; ?></td>
-                        
+                        <?php endif; ?>
                 <?php endwhile;       
             } //if ($resultInst->num_rows > 0) ends
             else {
@@ -202,18 +197,29 @@ if (isset($_POST['search']))
             }
             $db->close();
             ?>
+
         </tbody>
 
+</table>
+<br>
+<div align="left">
+  <button name="create_excel" id="create_excel" class="">Create Excel File</button>
 
-<?php
+</div>
+<?php } ?>
 
+<!--https://www.youtube.com/watch?v=6CYar9oeR_c-->
+<script type="text/javascript">
 
- 	
+  $(document).ready(function(){
+    $('#create_excel').click(function(){
+      var excel_data = $('#report_table').html();
+      var page = "excel.php?data=" + excel_data;
+      window.location = page;
+    });
 
+  });
 
-}
+</script>
 
-
-
-?>
 

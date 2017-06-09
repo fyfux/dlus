@@ -1,30 +1,28 @@
+<!--EDIT USER-->
+
 
 <?php
 
    $title = 'Edit User';
-
    include('include/parts/header.php');
+   include('sql_calls.php');
 
-
-$role = "SELECT role_id, role_description FROM user_role";
-$resultrole = mysqli_query($db, $role);
-
-$ractive = "SELECT * FROM user_status";
-$resultactive = mysqli_query($db, $ractive);
 
 if(isset($_GET['user_id']))
 {
-$user_id=$_GET['user_id'];
-if(isset($_POST['submit']))
-{
-$hansa_id=$_POST['hansa_id'];
-$first_name=$_POST['first_name'];
-$last_name=$_POST['last_name'];
-$email=$_POST['email'];
-$user_role=$_POST['user_role'];
-$active=$_POST['active'];
+$user_id = test_input($_GET["user_id"]);
 
-$query3=mysqli_query($db,"update user set hansa_id='$hansa_id', first_name='$first_name', last_name='$last_name', email='$email',  user_role='$user_role', active='$active' where user_id='$user_id'");
+$hansa_id = $first_name = $last_name = $email = $user_role = $active = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $hansa_id = test_input($_POST["hansa_id"]);
+  $first_name = test_input($_POST["first_name"]);
+  $last_name = test_input($_POST["last_name"]);
+  $email = test_input($_POST["email"]);
+  $user_role = test_input($_POST["user_role"]);
+  $active = test_input($_POST["active"]);
+
+
+$query3=mysqli_query($db,"UPDATE user SET hansa_id='$hansa_id', first_name='$first_name', last_name='$last_name', email='$email',  user_role='$user_role', active='$active' WHERE user_id='$user_id'");
 
 if($query3)
 {
@@ -35,7 +33,7 @@ else{
 }
 }
 
-$query1=mysqli_query($db,"select * from user where user_id='$user_id'");
+$query1=mysqli_query($db,"SELECT * FROM user WHERE user_id='$user_id'");
 $query2=mysqli_fetch_array($query1);}
 ?>
 
@@ -71,7 +69,7 @@ $query2=mysqli_fetch_array($query1);}
 <!-- Dropdown selection for user role -->
 <select name="active">
   <?php 
-  while ($row = $resultactive->fetch_assoc()) :
+  while ($row = $resultuser_status->fetch_assoc()) :
       echo "<option value='" . $row['active_id'] ."'>" . $row['active_description'] ."</option>";
       print_r($row);
   endwhile;

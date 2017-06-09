@@ -1,12 +1,11 @@
 <!-- NEW PROJECT -->
 
+
 <?php
 
    $title = 'New Project';
-
+   
    include('include/parts/header.php');
-
-
 
 ?>
 

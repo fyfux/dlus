@@ -1,20 +1,24 @@
 <!-- PROCESS NEW RECORD -->
+
+
 <?php
 include 'session.php'; 
 
-// create a variable
+$week_no = $mon = $tue = $wed = $thu = $fri = $sat = $sun = $hproject_number = $hproject_manager = "";
+
 $huser_id=$_SESSION['login_user'];
-$week_no=$_POST['week_no'];
-$mon=$_POST['mon'];
-$tue=$_POST['tue'];
-$wed=$_POST['wed'];
-$thu=$_POST['thu'];
-$fri=$_POST['fri'];
-$sat=$_POST['sat'];
-$sun=$_POST['sun'];
-$hproject_number=$_POST['hproject_number'];
-$hproject_manager=$_POST['hproject_manager'];
-$sum=$mon+$tue+$wed+$thu+$fri+$sat+$sun;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $week_no = test_input($_POST["week_no"]);
+  $mon = test_input($_POST["mon"]);
+  $tue = test_input($_POST["tue"]);
+  $wed = test_input($_POST["wed"]);
+  $thu = test_input($_POST["thu"]);
+  $fri = test_input($_POST["fri"]);
+  $sat = test_input($_POST["sat"]);
+  $sun = test_input($_POST["sun"]);
+  $hproject_number = test_input($_POST["hproject_number"]);
+  $hproject_manager = test_input($_POST["hproject_manager"]); 
+  $sum=$mon+$tue+$wed+$thu+$fri+$sat+$sun;
 
  
 //Execute the query
@@ -50,4 +54,4 @@ echo $sum;
     }
 
     // close the connection to the server
-    mysqli_close($db);	
+    mysqli_close($db);	}

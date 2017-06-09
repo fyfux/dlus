@@ -1,14 +1,13 @@
 <!-- NEW USER -->
+
+
 <?php
 
-   $title = 'New User';
+  $title = 'New User';
 
-   include('include/parts/header.php');
-
-   //FOR DROPDOWN MENU
-   $role = "SELECT role_id, role_name FROM user_role";
-   $resultrole = mysqli_query($db, $role);
-
+  include('include/parts/header.php');
+  include('sql_calls.php'); 
+ 
 ?>
 
 

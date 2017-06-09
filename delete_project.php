@@ -1,14 +1,12 @@
 <!--DELETE PROJECT-->
 <?php
 
-include('config.php');
+include('session.php');
 
-if(isset($_GET['project_id']))
-{
-	$project_id = mysqli_real_escape_string($db,$_GET['project_id']);
-    $project_id = stripslashes($project_id);
-      
-	//$project_id=$_GET['project_id'];
+$project_id =""; 
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+  $project_id = test_input($_GET["project_id"]);
+
 	$query1=mysqli_query($db,"delete from project where project_id='$project_id'");
 	if($query1)
 	{

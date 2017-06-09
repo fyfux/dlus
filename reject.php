@@ -2,11 +2,11 @@
 <?php
   	include('session.php');
 
-	if(isset($_GET['record_id']))
-	{	
-		// For Security reasons
-		$record_id = mysqli_real_escape_string($db, $_GET['record_id']);
-		$record_id = stripslashes($record_id);
+
+  	$record_id = "";
+	if ($_SERVER["REQUEST_METHOD"] == "GET") {
+  	$record_id = test_input($_GET["record_id"]);
+
 		
 		//Check user permissions (PM)
 		if ($permissions == 4) {

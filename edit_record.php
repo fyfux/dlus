@@ -5,34 +5,36 @@
 
    $title = 'Edit Record';
 
-   include('include/parts/header.php');
-
+  include('include/parts/header.php');
+  include('sql_calls.php');
   //FOR DRODOWN MENUS
-  $role = "SELECT status_id, status_description FROM status";
-  $resultrole = mysqli_query($db, $role);
-
-   $project = "SELECT project_id, project_number, description FROM project where status = 1 ORDER BY project_number";
+  //$role = "SELECT status_id, status_description FROM status";
+  //$resultrole = mysqli_query($db, $role);
+/*
+   $project = "SELECT * FROM project where status = 1 ORDER BY project_number";
    $resultproject = mysqli_query($db, $project);
-   $manager = "SELECT user_id, hansa_id, first_name, last_name FROM user where user_role = 4 ORDER BY first_name";
+   $manager = "SELECT * FROM user where user_role = 4 ORDER BY first_name";
    $resultmanager = mysqli_query($db, $manager);
+*/
 
   if(isset($_GET['record_id']))
   {
-    $record_id = mysqli_real_escape_string($db,$_GET['record_id']);
-    $record_id = stripslashes($record_id);
+    $record_id = test_input($_GET["record_id"]);
     //$record_id=$_GET['record_id'];
+      $week = $mon = $tue = $wed = $thu = $fri = $sat = $sun = $hproject_number = $hproject_manager = $pm = $mg = "";
+
       if(isset($_POST['submit']))
         {
-        $week=$_POST['week'];
-        $mon=$_POST['mon'];
-        $tue=$_POST['tue'];
-        $wed=$_POST['wed'];
-        $thu=$_POST['thu'];
-        $fri=$_POST['fri'];
-        $sat=$_POST['sat'];
-        $sun=$_POST['sun'];
-        $hproject_number=$_POST['hproject_number'];
-        $hproject_manager=$_POST['hproject_manager'];
+        $week = test_input($_POST["week"]);
+        $mon = test_input($_POST["mon"]);
+        $tue = test_input($_POST["tue"]);
+        $wed = test_input($_POST["wed"]);
+        $thu = test_input($_POST["thu"]);
+        $fri = test_input($_POST["fri"]);
+        $sat = test_input($_POST["sat"]);
+        $sun = test_input($_POST["sun"]);
+        $hproject_number = test_input($_POST["hproject_number"]);
+        $hproject_manager = test_input($_POST["hproject_manager"]);
         $sum=$mon+$tue+$wed+$thu+$fri+$sat+$sun;
         $pm=0;
         $mg=0;

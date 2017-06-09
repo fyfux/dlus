@@ -4,12 +4,7 @@
    $title = 'Add New Project';
 
    include('include/parts/header.php');
-
-   //FOR DROPDOWN MENU
-   $project = "SELECT project_id, project_number, description FROM project where status = 1 ORDER BY project_number";
-   $resultproject = mysqli_query($db, $project);
-   $manager = "SELECT user_id, hansa_id, first_name, last_name FROM user where user_role = 4 ORDER BY first_name";
-   $resultmanager = mysqli_query($db, $manager);
+   include('sql_calls.php'); 
 
 ?>
 

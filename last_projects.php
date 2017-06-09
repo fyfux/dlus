@@ -1,5 +1,7 @@
 <!-- LAST PROJECTS -->
-<!-- $result IN session.php -->
+
+<?php include('sql_calls.php');  ?>
+
 <div class="preview">
 <table>
 
@@ -15,9 +17,9 @@
 
     <tbody>
         <!--Use a while loop to make a table row for every DB row-->
-        <?php if ($result->num_rows > 0) {
+        <?php if ($resultlast_projects->num_rows > 0) {
         // output data of each row
-            while( $row = $result->fetch_assoc()):?>
+            while( $row = $resultlast_projects->fetch_assoc()):?>
             <tr>
                 <td><?php echo $row["project_number"]; ?></td>
                 <td><?php echo $row["description"]; ?></td>

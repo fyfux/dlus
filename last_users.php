@@ -1,5 +1,7 @@
 <!-- LAST USERS -->
-<!-- $result1 IN session.php -->
+
+
+<?php include_once('sql_calls.php'); ?>
 <div class="preview">
 <table>
     <caption>Last Users
@@ -17,9 +19,9 @@
 
     <tbody>
         <!--Use a while loop to make a table row for every DB row-->
-        <?php if ($result1->num_rows > 0) {
+        <?php if ($resultlast_users->num_rows > 0) {
         // output data of each row
-            while( $row = $result1->fetch_assoc()):?>
+            while( $row = $resultlast_users->fetch_assoc()):?>
             <tr>
                 <td><?php echo $row["hansa_id"]; ?></td>
                 <td><?php echo $row["first_name"]; ?></td>

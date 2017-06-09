@@ -1,28 +1,27 @@
 <!--EDIT PROJECT-->
 
-<!--POST DROŠĪBA-->
 
 <?php
 
    $title = 'Edit Project';
-
    include('include/parts/header.php');
+   include('sql_calls.php');
 
-
-	$role = "SELECT status_id, status_description FROM status";
-	$resultrole = mysqli_query($db, $role);
+	//$role = "SELECT status_id, status_description FROM status";
+	//$resultrole = mysqli_query($db, $role);
 
 	if(isset($_GET['project_id']))
 	{
-	$project_id = mysqli_real_escape_string($db,$_GET['project_id']);
-	$project_id = stripslashes($project_id);
-	//$project_id=$_GET['project_id'];
+	$project_id = test_input($_GET["project_id"]);
 
-	if(isset($_POST['submit']))
-	{
-	$project_number=$_POST['project_number'];
-	$description=$_POST['description'];
-	$status=$_POST['status'];
+	$project_number = $description = $status = "";
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	//if(isset($_POST['submit'])){
+	
+	$project_number = test_input($_POST["project_number"]);
+  	$description = test_input($_POST["description"]);
+  	$status = test_input($_POST["status"]);
+
 	$query3=mysqli_query($db,"update project set project_number='$project_number', description='$description', status='$status' where project_id='$project_id'");
 
 	if($query3)
@@ -52,7 +51,7 @@
 	<!-- Dropdown selection for user role -->
 	<select name="status">
 		  <?php 
-		  while ($row = $resultrole->fetch_assoc()) {
+		  while ($row = $resultstatus->fetch_assoc()) {
 		      echo "<option value='" . $row['status_id'] ."'>" . $row['status_description'] ."</option>";
 		      print_r($row);
 		  }

@@ -3,21 +3,27 @@
 <?php   
 
     include_once('config.php');
+    include_once('sql_calls.php');
 
-    $sql = ("SELECT huser_id, week, mon, tue, wed, thu, fri, sat, sun, sum, hproject_number, hproject_manager, pm, mg FROM record WHERE huser_id = '$user_check' ORDER BY record_id DESC LIMIT 5") ; 
-    $result3 = $db->query($sql);
 
     $sqlPM = ("SELECT huser_id, week, mon, tue, wed, thu, fri, sat, sun, sum, hproject_number, hproject_manager, pm, mg FROM record WHERE hproject_manager = '$userrid' ORDER BY record_id DESC LIMIT 5") ; 
     $resultPM = $db->query($sqlPM);
 
-    $sqlMG = ("SELECT huser_id, week, mon, tue, wed, thu, fri, sat, sun, sum, hproject_number, hproject_manager, pm, mg FROM record WHERE PM = '1' ORDER BY record_id DESC") ; 
-    $resultMG = $db->query($sqlMG);
 
-    $sqlACC = ("SELECT huser_id, week, mon, tue, wed, thu, fri, sat, sun, sum, hproject_number, hproject_manager, pm, mg FROM record WHERE PM = '1' && MG = '1' ORDER BY record_id DESC LIMIT 5") ; 
-    $resultACC = $db->query($sqlACC);
+    $sqlINSTlim = $sqlINST ." LIMIT 5";
+    $resultINSTlim = $db->query($sqlINSTlim);
 
-    $sqlADM = ("SELECT huser_id, week, mon, tue, wed, thu, fri, sat, sun, sum, hproject_number, hproject_manager, pm, mg FROM record ORDER BY record_id DESC LIMIT 5") ; 
-    $resultADM = $db->query($sqlADM);
+    //$sqlPMlim = $sqlPM ." LIMIT 5";
+    //$resultPMlim = $db->query($sqlPMlim);
+
+    $sqlMGlim = $sqlMG ." LIMIT 5";
+    $resultMGlim = $db->query($sqlMGlim);
+
+    $sqlACClim = $sqlACC ." LIMIT 5";
+    $resultACClim = $db->query($sqlACClim);
+
+    $sqlADMlim = $sqlADM ." LIMIT 5";
+    $resultADMlim = $db->query($sqlADMlim);
 
     $project_name = "SELECT project_number from project where project_id = hproject_number";
     $resultproject_name = $db->query($project_name);
@@ -63,9 +69,9 @@
     <?php if ($permissions == 5):?>
         <tbody>
             <!--Use a while loop to make a table row for every DB row-->
-            <?php if ($result3->num_rows > 0) {
+            <?php if ($resultINSTlim->num_rows > 0) {
             // output data of each row
-                while( $row = $result3->fetch_assoc()):?>
+                while( $row = $resultINSTlim->fetch_assoc()):?>
                 <tr>
                     <td ><?php echo $row["week"]; ?></td>
                     <td id="days"><?php echo $row["mon"]; ?></td>
@@ -100,7 +106,7 @@
             else {
             echo "0 results";
             }
-            $db->close();
+            //$db->close();
             ?>
         </tbody>
     <?php endif //if ($permissions == 5) ends?>
@@ -149,7 +155,7 @@
         } else {
         echo "0 results";
         }
-        $db->close();
+        //$db->close();
         ?>
         </tbody>
     <?php endif //if ($permissions == 4) ends ?>
@@ -158,9 +164,9 @@
     <?php if ($permissions == 3):?>
         <tbody>
             <!--Use a while loop to make a table row for every DB row-->
-            <?php if ($resultMG->num_rows > 0) {
+            <?php if ($resultMGlim->num_rows > 0) {
                 // output data of each row
-                while($row = $resultMG->fetch_assoc()):?>
+                while($row = $resultMGlim->fetch_assoc()):?>
                 <tr>
                     <td><?php echo $row["huser_id"]; ?></td>
                     <td><?php echo $row["week"]; ?></td>
@@ -196,7 +202,7 @@
                 } else {
                 echo "0 results";
                 }
-            $db->close();
+           //$db->close();
             ?>
         </tbody>
     <?php endif ?>
@@ -204,8 +210,8 @@
     <!--Table for ACC--> 
     <?php if ($permissions == 2):?>
         <tbody>
-            <?php if ($resultACC->num_rows > 0) {
-                while( $row = $resultACC->fetch_assoc()):?>
+            <?php if ($resultACClim->num_rows > 0) {
+                while( $row = $resultACClim->fetch_assoc()):?>
                     <tr>
                         <td><?php echo $row["huser_id"]; ?></td>
                         <td><?php echo $row["week"]; ?></td>
@@ -241,16 +247,16 @@
             } else {
             echo "0 results";
             }
-            $db->close();
+           // $db->close();
             ?>
         </tbody>
     <?php endif ?>
     
-    <!--Table for ADM and ACC--> 
+    <!--Table for ADM--> 
     <?php if ($permissions == 1):?>
         <tbody>
-            <?php if ($resultADM->num_rows > 0) {
-                while( $row = $resultADM->fetch_assoc()):?>
+            <?php if ($resultADMlim->num_rows > 0) {
+                while( $row = $resultADMlim->fetch_assoc()):?>
                     <tr>
                         <td><?php echo $row["huser_id"]; ?></td>
                         <td><?php echo $row["week"]; ?></td>
@@ -262,8 +268,8 @@
                         <td id="days"><?php echo $row["sat"]; ?></td>
                         <td id="days"><?php echo $row["sun"]; ?></td>
                         <td id="extra"><?php echo $row["sum"]; ?></td>
-                        <td><?php echo $row["hproject_number"]; ?></td>
-                        <td><?php echo $row["hproject_manager"]; ?></td>
+                        <td><?php echo "1000-1-675"; /*$row["hproject_number"];*/ ?></td>
+                        <td><?php echo "Lilita Skudra";/* $row["hproject_manager"];*/ ?></td>
                         
                         <td>
                             <?php if($row["pm"] == 0)
@@ -286,7 +292,7 @@
             } else {
             echo "0 results";
             }
-            $db->close();
+           //$db->close();
             ?>
         </tbody>
     <?php endif ?>
