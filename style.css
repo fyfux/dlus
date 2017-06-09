@@ -1,0 +1,201 @@
+body{
+    width: 90%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    color: #333333;
+    font-size: 12px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+
+footer {
+   position: relative;
+   bottom:10px;
+   text-align: right;
+   padding-top: 20px;
+   width: 80%;
+   margin:auto;
+
+}
+form {
+    margin: 0 auto;
+    width: 350px;
+    padding-top: 20px;
+}
+
+img{
+    height: 70px;
+    width: 120px;
+}
+
+
+h1, .h1 {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+
+ul {
+    padding: 0;
+    margin: 0 0 0 20px;
+}
+
+a {
+    color: #858688;
+    outline: none;
+}
+
+@media (max-width: 767px) {
+    html {
+        text-align: center;
+    }
+}
+
+button.edit_profile {
+    float: right;
+    margin-right: 200px;
+    margin-top: 10px;
+    padding: 5px;
+
+}
+
+.cancel {
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  -webkit-appearance: button;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+}
+a:hover {
+    color: #333333;
+}
+
+/*
+.required:after { content:" *"; }
+*/
+
+table {
+
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #b7b7b7;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.btn-default{
+    float: right;
+    padding-top: -10px;
+    width: 150px;
+    margin-left: 2px; 
+    margin-bottom: 15px;
+
+}
+
+.preview{
+    width: 100%;
+    margin:auto;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+}
+
+caption{
+    border: 2px black;
+    margin-bottom: -15px;
+    font-size: 16px;
+    margin-left: 15px;
+    color: black;
+    font-weight: bold;
+    height: 60px;
+}
+
+
+
+
+
+.info_grid{
+    width: 100%;
+    margin:auto;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.record{
+    display: inline;
+}
+
+.info_box{
+    width: 70%;
+    margin: 0 auto;
+    border:2px solid gray;
+    border-radius: 5px;
+   
+}
+.profile_info{
+
+}
+
+.inside{
+    border-collapse: collapse;
+    border-spacing: 0px;
+    margin-top: -9px;
+    margin-bottom: -9px;
+    margin-left: -9px;
+    padding-right: -15px;
+}
+
+
+#extra{
+    color: green;
+
+}
+#days{
+    color: red;
+
+}
+.hours{
+    width: 50px;
+}
+
+.fa-times{
+    color: red;
+}
+
+.active{
+    background-color: #c4c0c0;
+}
